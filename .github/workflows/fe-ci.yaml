@@ -21,18 +21,16 @@ jobs:
           node-version: '20'
           cache: 'pnpm'
 
-      # Install pnpm
-      - name: Install pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
+      # Explicitly install pnpm
+      - name: Install pnpm globally
+        run: npm install -g pnpm
 
-      # Verify version
-      - name: Verify Node.js, npm, and pnpm
+      # Verify installation
+      - name: Verify pnpm installation
         run: |
-          node -v
-          npm -v
-          pnpm -v
+          echo "Node.js version: $(node -v)"
+          echo "npm version: $(npm -v)"
+          echo "pnpm version: $(pnpm -v)"
 
       # Install dependencies
       - name: Install dependencies
