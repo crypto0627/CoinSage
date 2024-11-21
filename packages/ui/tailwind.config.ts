@@ -12,6 +12,7 @@ const config = {
   ],
   prefix: "",
   theme: {
+    darkMode: "selector",
     container: {
       center: true,
       padding: "2rem",

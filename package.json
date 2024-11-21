@@ -1,5 +1,5 @@
 {
-  "name": "CoinSage",
+  "name": "coinsage",
   "private": true,
   "scripts": {
     "build": "turbo build",
