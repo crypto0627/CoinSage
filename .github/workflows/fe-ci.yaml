@@ -1,29 +1,43 @@
-name: Frontend CI
- 
+name: FE CI Workflow
+
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    types: [opened, synchronize]
- 
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
 
+    steps:
+      # Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js with caching
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
           cache: 'pnpm'
 
+      # Install pnpm
       - name: Install pnpm
-        run: corepack enable && corepack prepare pnpm@8.15.6 --activate
+        run: |
+          corepack enable
+          corepack prepare pnpm@latest --activate
 
+      # Verify version
+      - name: Verify Node.js, npm, and pnpm
+        run: |
+          node -v
+          npm -v
+          pnpm -v
+
+      # Install dependencies
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build
+      # Build the project
+      - name: Build the project
         run: pnpm build
-
