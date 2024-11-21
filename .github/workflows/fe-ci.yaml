@@ -1,4 +1,4 @@
-name: FE CI Workflow
+name: CI Workflow
 
 on:
   push:
@@ -14,23 +14,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up Node.js with caching
-      - name: Setup Node.js
+      # Set up Node.js and explicitly enable corepack
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: '20' # Specify Node.js version
+          cache: 'pnpm'      # Use pnpm caching
 
-      # Explicitly install pnpm
-      - name: Install pnpm globally
-        run: npm install -g pnpm
-
-      # Verify installation
-      - name: Verify pnpm installation
+      # Enable corepack explicitly and prepare pnpm
+      - name: Enable Corepack and install pnpm
         run: |
-          echo "Node.js version: $(node -v)"
-          echo "npm version: $(npm -v)"
-          echo "pnpm version: $(pnpm -v)"
+          corepack enable
+          corepack prepare pnpm@latest --activate
+          pnpm --version
 
       # Install dependencies
       - name: Install dependencies
