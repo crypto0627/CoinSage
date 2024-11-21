@@ -1,4 +1,4 @@
-name: CI Workflow
+name: Frontend CI Workflow
 
 on:
   push:
@@ -16,17 +16,13 @@ jobs:
 
       # Set up Node.js and explicitly enable corepack
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20' # Specify Node.js version
-          cache: 'pnpm'      # Use pnpm caching
 
-      # Enable corepack explicitly and prepare pnpm
-      - name: Enable Corepack and install pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@latest --activate
-          pnpm --version
+      # Install pnpm
+      - name: Install PNPM
+        run: npm i -g pnpm
 
       # Install dependencies
       - name: Install dependencies
