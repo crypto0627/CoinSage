@@ -32,7 +32,9 @@ const config = createConfig({
 function Web3AuthxWagmiProvider({ children }: { children: ReactNode }) {
   return (
     <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>{children as React.ReactNode}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        {children as React.ReactNode}
+      </QueryClientProvider>
     </WagmiProvider>
   );
 }

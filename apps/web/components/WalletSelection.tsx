@@ -1,14 +1,8 @@
-import { BarChart2, Send, SwitchCamera, Wallet, X } from "lucide-react";
+"use client";
+import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { SendTransaction } from "../../config/sendTransaction";
-import { Balance } from "../../config/balance";
-import { WriteContract } from "../../config/writeContract";
-import { SwitchChain } from "../../config/switchNetwork";
-
-interface WalletSelectionProps {
-  closeWalletSelection: () => void;
-}
+import { WalletSelectionProps } from "../types/ui";
 
 export function WalletSelection({
   closeWalletSelection,
@@ -25,7 +19,7 @@ export function WalletSelection({
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 backdrop-blur-sm"
+      className="fixed inset-0 flex items-center justify-center bg-gray-900/75 backdrop-blur-sm"
       onClick={closeWalletSelection}
     >
       <div
@@ -34,7 +28,7 @@ export function WalletSelection({
       >
         <div className="flex justify-between items-center p-6 border-b border-cyan-500">
           <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-            Web3Auth X Wagmi
+            CoinSage 錢包
           </h2>
           <X
             className="h-6 w-6 cursor-pointer text-cyan-400 hover:text-cyan-300 transition-colors"
@@ -46,8 +40,10 @@ export function WalletSelection({
           {isClient &&
             (isConnected ? (
               <>
-                <div className="text-lg font-bold text-cyan-400">
-                  Connected to {connector?.name}
+                <div className="flex justify-between items-center">
+                  <div className="text-lg font-bold text-cyan-400">
+                    Connected to {connector?.name}
+                  </div>
                 </div>
                 <div className="mt-2 text-gray-300 break-all bg-gray-700 p-3 rounded-lg">
                   {address}
@@ -58,18 +54,6 @@ export function WalletSelection({
                 >
                   Disconnect
                 </button>
-                <div className="mt-6 space-y-4">
-                  <WalletAction icon={<Send />} action={<SendTransaction />} />
-                  <WalletAction icon={<Wallet />} action={<Balance />} />
-                  <WalletAction
-                    icon={<BarChart2 />}
-                    action={<WriteContract />}
-                  />
-                  <WalletAction
-                    icon={<SwitchCamera />}
-                    action={<SwitchChain />}
-                  />
-                </div>
               </>
             ) : (
               <>
@@ -80,12 +64,12 @@ export function WalletSelection({
                       onClick={() => connect({ connector })}
                       className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-bold rounded-full hover:from-cyan-600 hover:to-blue-600 transition duration-300 transform hover:scale-105"
                     >
-                      {connector.name}
+                      Connect {connector.name}
                     </button>
                   ))}
                 </div>
                 {error && (
-                  <div className="mt-4 text-red-400 bg-red-900 bg-opacity-50 p-3 rounded-lg">
+                  <div className="mt-4 text-red-400 bg-red-900/50 p-3 rounded-lg">
                     {error.message}
                   </div>
                 )}
@@ -93,21 +77,6 @@ export function WalletSelection({
             ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function WalletAction({
-  icon,
-  action,
-}: {
-  icon: React.ReactNode;
-  action: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-center space-x-3 p-4 bg-gray-700 rounded-lg hover:bg-gray-600 transition-colors duration-200">
-      <div className="text-cyan-400">{icon}</div>
-      <div className="flex-grow">{action}</div>
     </div>
   );
 }

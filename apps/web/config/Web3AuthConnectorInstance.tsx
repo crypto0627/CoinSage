@@ -17,11 +17,12 @@ export default function Web3AuthConnectorInstance(chains: Chain[]) {
   const chainConfig = {
     chainNamespace: CHAIN_NAMESPACES.EIP155,
     chainId: "0x" + (chains[0]?.id?.toString(16) || ""),
-    rpcTarget: chains[0]?.rpcUrls?.default?.http?.[0] || "", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+    rpcTarget: chains[0]?.rpcUrls?.default?.http?.[0] || "", // Public RPC endpoint
     displayName: chains[0]?.name || "",
     tickerName: chains[0]?.nativeCurrency?.name || "",
     ticker: chains[0]?.nativeCurrency?.symbol || "",
-    blockExplorerUrl: chains[0]?.blockExplorers?.default.url?.[0] || "",
+    blockExplorerUrl: chains[0]?.blockExplorers?.default.url || "",
+    logo: "/logo.jpeg",
   };
 
   const privateKeyProvider = new EthereumPrivateKeyProvider({
@@ -40,8 +41,8 @@ export default function Web3AuthConnectorInstance(chains: Chain[]) {
       loginMethodsOrder: ["github", "google"],
       defaultLanguage: "en",
       modalZIndex: "2147483647",
-      logoLight: "https://github.io/images/web3authlog.png",
-      logoDark: "https://web3auth.io/images/web3authlogodark.png",
+      logoLight: "/logo.jpeg",
+      logoDark: "/logo.jpeg",
       uxMode: "redirect",
       mode: "dark",
     },

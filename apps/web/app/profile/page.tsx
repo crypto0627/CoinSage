@@ -1,8 +1,7 @@
 "use client";
-import { Navbar } from "../components/Navbar";
-import { Banner } from "../components/Banner";
-import { Footer } from "../components/Footer";
-import { AIChatbot } from "../components/AIChatbot";
+import { Navbar } from "../../components/Navbar";
+import { Banner } from "../../components/Banner";
+import { Footer } from "../../components/Footer";
 import { useState } from "react";
 
 export default function Home() {
@@ -18,7 +17,6 @@ export default function Home() {
         />
       </main>
       <Footer />
-      <AIChatbot />
     </div>
   );
 }

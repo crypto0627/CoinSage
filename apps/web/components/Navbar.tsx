@@ -4,10 +4,8 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useAccount, useDisconnect } from "wagmi";
 import { Chain } from "viem";
-
-interface NavbarProps {
-  toggleWalletSelection: () => void;
-}
+import { NavbarProps } from "../types/ui";
+import { formatAddress } from "../utils/stringify";
 
 export function Navbar({ toggleWalletSelection }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +27,7 @@ export function Navbar({ toggleWalletSelection }: NavbarProps) {
       setChain(undefined);
     }
   }, [account.status]);
-  
+
   return (
     <nav className="bg-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,7 +53,7 @@ export function Navbar({ toggleWalletSelection }: NavbarProps) {
                     className="px-3 py-2 rounded-md text-sm font-medium bg-cyan-600 hover:bg-cyan-500"
                     onClick={toggleWalletSelection}
                   >
-                    {address}
+                    {formatAddress(address)}
                   </span>
                   <span className="px-3 py-2 rounded-md text-sm font-medium bg-cyan-600 hover:bg-cyan-500">
                     {chain?.name}
